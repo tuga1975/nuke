@@ -15,7 +15,7 @@ namespace Nuke.Core.OutputSinks
         [CanBeNull]
         public new static IOutputSink Instance { get; } = Bitrise.Instance != null ? new BitriseOutputSink() : null;
 
-        public override IDisposable WriteBlock (string text)
+        public override IDisposable LogBlock (string text)
         {
             Info(FigletTransform.GetText(text, "ansi-shadow"));
             return DelegateDisposable.CreateBracket();

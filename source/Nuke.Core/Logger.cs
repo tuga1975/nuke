@@ -29,7 +29,7 @@ namespace Nuke.Core
         /// </returns>
         public static IDisposable Block (string text)
         {
-            return OutputSink.WriteBlock(text);
+            return OutputSink.LogBlock(text);
         }
 
         #region Log
@@ -56,7 +56,7 @@ namespace Nuke.Core
         /// </summary>
         public static void Log (string text = null)
         {
-            OutputSink.Write(text ?? string.Empty);
+            OutputSink.Log(text ?? string.Empty);
         }
 
         /// <summary>
@@ -65,6 +65,44 @@ namespace Nuke.Core
         public static T Log<T> (this T obj, Func<T, string> text)
         {
             Log(text(obj));
+            return obj;
+        }
+
+        #endregion
+
+        #region Success
+
+        /// <summary>
+        /// Logs a message as success.
+        /// </summary>
+        [StringFormatMethod("format")]
+        public static void Success (string format, params object[] args)
+        {
+            Success(string.Format(format, args));
+        }
+
+        /// <summary>
+        /// Logs a message as success.
+        /// </summary>
+        public static void Success (object value)
+        {
+            Success(value.ToString());
+        }
+
+        /// <summary>
+        /// Logs a message as success.
+        /// </summary>
+        public static void Success (string text = null)
+        {
+            OutputSink.Log(text ?? string.Empty);
+        }
+
+        /// <summary>
+        /// Logs a message as success.
+        /// </summary>
+        public static T Success<T> (this T obj, Func<T, string> text)
+        {
+            Success(text(obj));
             return obj;
         }
 

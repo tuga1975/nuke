@@ -18,19 +18,24 @@ namespace Nuke.Core.OutputSinks
     public class ConsoleOutputSink : IOutputSink
     {
         public static IOutputSink Instance { get; } = new ConsoleOutputSink();
-        
-        public virtual void Write (string text)
-        {
-            WriteWithColors(text, ConsoleColor.White, ConsoleColor.Black);
-        }
 
-        public virtual IDisposable WriteBlock (string text)
+        public virtual IDisposable LogBlock (string text)
         {
             Info(FigletTransform.GetText(text));
 
             return DelegateDisposable.CreateBracket(
                 () => Console.Title = $"Executing: {text}",
                 () => Console.Title = $"Finished: {text}");
+        }
+
+        public virtual void Success(string text)
+        {
+            WriteWithColors(text, ConsoleColor.Green, ConsoleColor.DarkGreen);
+        }
+
+        public virtual void Log (string text)
+        {
+            WriteWithColors(text, ConsoleColor.Cyan, ConsoleColor.DarkCyan);
         }
 
         public virtual void Trace (string text)

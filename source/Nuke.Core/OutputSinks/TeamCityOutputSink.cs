@@ -22,12 +22,12 @@ namespace Nuke.Core.OutputSinks
             _teamCity = teamCity;
         }
 
-        public override void Write (string text)
+        public override void Log (string text)
         {
             _teamCity.WriteMessage(text);
         }
 
-        public override IDisposable WriteBlock (string text)
+        public override IDisposable LogBlock (string text)
         {
             return DelegateDisposable.CreateBracket(
                 () => _teamCity.OpenBlock(text),
