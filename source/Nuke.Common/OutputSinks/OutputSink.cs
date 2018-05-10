@@ -38,6 +38,8 @@ namespace Nuke.Common.OutputSinks
                     return new TeamCityOutputSink(new TeamCity());
                 case HostType.TeamServices:
                     return new TeamServicesOutputSink(new TeamServices());
+                case HostType.Travis:
+                    return new TravisOutputSink();
                 default:
                     return new ConsoleOutputSink();
             }
